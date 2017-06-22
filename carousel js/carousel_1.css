@@ -1,0 +1,59 @@
+.wrap	{	
+	padding-top: 50px;
+	padding-left: 30%;
+}
+.carousel {
+	position: relative;
+	margin-bottom: 60px;
+}	
+.carousel-wrap {
+	overflow: hidden;
+	position: relative;
+}
+ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	height: 200px;
+	width: 9999px;
+}
+li {
+	display: inline-block;
+	margin-right: -4px;
+}
+.active {
+	position: absolute;
+	left: 0;
+	top: 0;
+	background-color: orange;
+	z-index: 10;
+}
+.controls {
+	width: 100%;
+	position: absolute;
+	top: 0;
+}
+.button-left, .button-right {
+	cursor: pointer;
+	width: 30px;
+	height: 200px;
+	background-color: rgba(0,0,0,.50);
+
+}
+.button-left span, .button-right span {
+	padding: 5px;
+	color: silver;
+	font-size: 30px;
+	font-weight: bold;
+	line-height: 200px;
+}
+.button-left {
+	float: left;
+}
+.button-right {
+	float: right;
+}
+.button-right span {
+	float: right;
+}
+
