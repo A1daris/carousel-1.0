@@ -38,10 +38,10 @@ Carousel.prototype.setMargin = function() {
 Carousel.prototype.moveR = function () {
 	
 	if (this.position >= 0 ) {
-			
+		if (this.loop) {
 			this.position = -((this.slidesCount - 1) * this.slideWidth);
 			this.setMargin();
-
+		}
 	} else {
 
 			this.slidesList.style.marginLeft = this.position + this.slideWidth + "px";

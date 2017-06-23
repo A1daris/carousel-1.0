@@ -31,7 +31,7 @@ $(document).ready(function() {
 			this.prev = this.active.prev();
 		}
 		Slider.prototype.addActive = function( direction ) {
-			this.direction.addClass("active").siblings().removeClass("active");
+			direction.addClass("active").siblings().removeClass("active");
 		}
 
 		Slider.prototype.moveRight = function() {
@@ -42,11 +42,13 @@ $(document).ready(function() {
 			if ( this.next.length ) {
 				this.position -= (this.next.offset().left - this.active.offset().left);
 				this.setPosition();
-				this.next.addClass("active").siblings().removeClass("active");
+				// this.next.addClass("active").siblings().removeClass("active");
+				this.addActive(this.next);
 			} else if (this.loop) {
 				this.position = 0;
 				this.setPosition();
-				this.first.addClass("active").siblings().removeClass("active");
+				this.addActive(this.first);
+
 			}
 		}
 		Slider.prototype.moveLeft = function() {
@@ -56,13 +58,13 @@ $(document).ready(function() {
 
 				this.position += (this.active.offset().left - this.prev.offset().left)
 				this.setPosition();
-				this.prev.addClass("active").siblings().removeClass("active");
+				this.addActive(this.prev);
 
 			} else if ( this.loop ) {
 
 				this.position = -(this.last.offset().left - this.first.offset().left);
 				this.setPosition();
-				this.last.addClass("active").siblings().removeClass("active");
+				this.addActive(this.last);
 
 			}
 
@@ -73,5 +75,6 @@ $(document).ready(function() {
 		}
 	
 var c1 = new Slider('carousel-1', true);
+var c1 = new Slider('carousel-2', false);
 
 });
