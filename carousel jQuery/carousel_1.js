@@ -13,9 +13,11 @@ $(document).ready(function() {
 		this.last = this.slides.last();
 
 		this.position = 0;
-		var that = $(this);
+
 		this.buttonRight.on('click', this.moveRight.bind(this));
 		this.buttonLeft.on('click', this.moveLeft.bind(this));
+
+		this.loop = loop;
 				// console.log( this.first)
 		}		
 
@@ -28,22 +30,40 @@ $(document).ready(function() {
 			this.next = this.active.next();
 			this.prev = this.active.prev();
 		}
+		Slider.prototype.addActive = function( direction ) {
+			this.direction.addClass("active").siblings().removeClass("active");
+		}
 
 		Slider.prototype.moveRight = function() {
+
 			this.findActive();
-			if ( this.next.length) {
+
+
+			if ( this.next.length ) {
 				this.position -= (this.next.offset().left - this.active.offset().left);
 				this.setPosition();
 				this.next.addClass("active").siblings().removeClass("active");
+			} else if (this.loop) {
+				this.position = 0;
+				this.setPosition();
+				this.first.addClass("active").siblings().removeClass("active");
 			}
 		}
 		Slider.prototype.moveLeft = function() {
 
 			this.findActive();
 			if ( this.prev.length ) {
+
 				this.position += (this.active.offset().left - this.prev.offset().left)
 				this.setPosition();
 				this.prev.addClass("active").siblings().removeClass("active");
+
+			} else if ( this.loop ) {
+
+				this.position = -(this.last.offset().left - this.first.offset().left);
+				this.setPosition();
+				this.last.addClass("active").siblings().removeClass("active");
+
 			}
 
 		}
@@ -52,6 +72,6 @@ $(document).ready(function() {
 			this.slideList.css('margin-left', this.position + 'px')
 		}
 	
-var c1 = new Slider('carousel-1');
+var c1 = new Slider('carousel-1', true);
 
 });
