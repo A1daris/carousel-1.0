@@ -1,16 +1,15 @@
 .wrap	{	
-	padding-top: 50px;
-	padding-left: 30%;
+	padding-left: 10%;
 }
 .carousel {
 	position: relative;
 	margin-bottom: 60px;
-	width: 400px;
+
 }	
 .carousel-wrap {
 	overflow: hidden;
 	position: relative;
-	width: 400px;
+	/*width: 1200px;*/
 
 }
 ul {
