@@ -11,17 +11,22 @@ $(document).ready(function() {
 		this.prev = this.active.prev();
 		this.first = this.slides.first();
 		this.last = this.slides.last();
-
+		this.slideWidth = this.first.width();
 		this.position = 0;
+		this.first.addClass("active");
 
 		this.buttonRight.on('click', this.moveRight.bind(this));
 		this.buttonLeft.on('click', this.moveLeft.bind(this));
 
 		this.loop = loop;
 		this.slidesGroup = slidesGroup;
-		this.sliderWidth = this.slidesGroup * this.first.width();
-		this.sliderMaxShift = (this.slidesGroup * this.first.width()) * (this.slides.length / this.slidesGroup - 1);
-
+		this.moveLeftPosition = this.slides.length - this.slidesGroup;
+		this.moveLeftSlideNum = this.slides[this.moveLeftPosition];
+		this.sliderWidth = Math.round(this.slidesGroup * this.first.width());
+		this.sliderMaxShift = Math.round((this.slidesGroup * this.slideWidth) * (this.slides.length / this.slidesGroup - 1));
+		this.sliderLeftShift = Math.round(( this.last.offset().left - this.first.offset().left + this.slideWidth ) - this.slideWidth * this.slidesGroup);
+		// console.log(this.moveLeftSlideNum);
+		
 		var that = this;
 		this.setSliderWidth = function() {
 			that.slider.css("width", that.sliderWidth + "px");
@@ -31,7 +36,7 @@ $(document).ready(function() {
 		}		
 
 		Slider.prototype.test = function() {
-			console.log(this.findActive);
+			console.log(this.last.offset().left - this.first.offset().left);
 		}
 
 		Slider.prototype.findActive = function() {
@@ -46,28 +51,41 @@ $(document).ready(function() {
 		Slider.prototype.moveRight = function() {
 			this.findActive();
 			
-			if ( this.position <  -this.sliderMaxShift) {
-				this.position = -this.sliderMaxShift;
-				this.setPosition();
-			}
-			else if ( this.next.length ) {
-				this.position -= (this.next.offset().left - this.active.offset().left);
-				console.log(this.position)
-				this.setPosition();
-				this.addActive(this.next);
-			} else if (this.loop) {
-				this.position = 0;
-				this.setPosition();
-				this.addActive(this.first);
-			}
 
+
+				if ( this.position <=  - this.sliderMaxShift ) {
+						this.position = - this.sliderMaxShift;
+						this.setPosition();	
+						if (this.loop) {
+								this.position = 0;
+								this.setPosition();
+								this.addActive(this.first);
+						}
+				} else if ( this.next.length ) {
+						this.position -= (this.next.offset().left - this.active.offset().left);
+						console.log(this.position)
+						this.setPosition();
+						this.addActive(this.next);
+				} else if (this.loop && this.slidesGroup == 1) {
+								this.position = 0;
+								this.setPosition();
+								this.addActive(this.first);
+				}
+
+				
+
+
+
+			
 		}
 		Slider.prototype.moveLeft = function() {
 
 			this.findActive();
+
 			if ( this.position > 0) {
 				this.position = 0;
 				this.setPosition();
+				this.addActive(this.first)
 			}
 			else if ( this.prev.length ) {
 				console.log(this.position);
@@ -77,9 +95,12 @@ $(document).ready(function() {
 
 			} else if ( this.loop ) {
 
-				this.position = -(this.last.offset().left - this.first.offset().left);
+				this.position = -(this.sliderLeftShift);
 				this.setPosition();
-				this.addActive(this.last);
+				var movepos = this.slides.length - this.slidesGroup;
+				var tee = this.slides[movepos];
+				this.slides.removeClass("active")
+				this.moveLeftSlideNum.className = ("active")
 
 			}
 
@@ -89,7 +110,9 @@ $(document).ready(function() {
 			this.slideList.css('margin-left', this.position + 'px')
 		}
 	
-var c1 = new Slider('carousel-1', true, 2);
+var c1 = new Slider('carousel-1', true, 1);
+var c2 = new Slider('carousel-2', false, 2);
+var c3 = new Slider('carousel-3', true, 3);
 
 
 });

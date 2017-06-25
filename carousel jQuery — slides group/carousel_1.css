@@ -4,15 +4,12 @@
 .carousel {
 	position: relative;
 	margin-bottom: 60px;
-
 }	
 .carousel-wrap {
 	overflow: hidden;
 	position: relative;
-	/*width: 1200px;*/
-
 }
-ul {
+.carousel-wrap ul {
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
@@ -20,15 +17,25 @@ ul {
 	width: 9999px;
 	transition: all .5s ease;
 }
-li {
+.carousel-wrap li {
 	display: inline-block;
 	margin-right: -4px;
+	position: relative;
+}
+.carousel-wrap li::before {
+	content: '1';
+	position: absolute;
+	left: 50%;
+	margin-left: -5px;
+	top: 50%;
+	margin-top: -30px;
+	font-size: 60px;
+	font-family: sans-serif;
+	color: peru;
+	opacity: .8;
 }
 .active {
-/*	position: absolute;
-	left: 0;
-	top: 0;
-	background-color: orange;*/
+
 }
 .controls {
 	width: 100%;
@@ -59,7 +66,30 @@ li {
 .button-right span {
 	float: right;
 }
-.wide {
-	width: 600px;
-	height: 200px;
+#item1::before {
+	content: '1';
+}
+#item2::before {
+	content: '2';
+}
+#item3::before {
+	content: '3';
+}
+#item4::before {
+	content: '4';
+}
+#item5::before {
+	content: '5';
+}
+#item6::before {
+	content: '6';
+}
+#item7::before {
+	content: '7';
+}
+#item8::before {
+	content: '8';
+}
+#item9::before {
+	content: '9';
 }
